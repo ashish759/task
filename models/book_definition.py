@@ -4,7 +4,7 @@ from sqlalchemy import ForeignKey
 
 class Book(db.Model):
     __tablename__ = 'books'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(100), nullable=False)
     author = db.Column(db.String(100), nullable=False)
     genre = db.Column(db.String(50))
@@ -14,7 +14,7 @@ class Book(db.Model):
 
 class Review(db.Model):
     __tablename__ = 'reviews'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     book_id = db.Column(db.Integer, ForeignKey('books.id'), nullable=False)
     user_id = db.Column(db.Integer, nullable=False)
     review_text = db.Column(db.Text)
