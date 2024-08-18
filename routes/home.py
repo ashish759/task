@@ -31,7 +31,7 @@ class BookList(Resource):
         return new_book, 201
 
 @api.route('/review')
-class Review(Resource):
+class ReviewResource(Resource):
     @api.marshal_list_with(review_model)
     def get(self):
         '''List all reviews'''
