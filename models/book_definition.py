@@ -1,21 +1,28 @@
-from . import db  # Import the db instance from __init__.py
+from . import Base  # Import the Base from the current package
 from sqlalchemy.orm import relationship
-from sqlalchemy import ForeignKey
+from sqlalchemy import Column, Integer, String, Text, ForeignKey
 
-class Book(db.Model):
+class Book(Base):
     __tablename__ = 'books'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    title = db.Column(db.String(100), nullable=False)
-    author = db.Column(db.String(100), nullable=False)
-    genre = db.Column(db.String(50))
-    year_published = db.Column(db.Integer)
-    summary = db.Column(db.Text)
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    title = Column(String(100), nullable=False)
+    author = Column(String(100), nullable=False)
+    genre = Column(String(50))
+    year_published = Column(Integer)
+    summary = Column(Text)
     reviews = relationship("Review", backref="book", cascade="all, delete-orphan")
 
-class Review(db.Model):
+class Review(Base):
     __tablename__ = 'reviews'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    book_id = db.Column(db.Integer, ForeignKey('books.id'), nullable=False)
-    user_id = db.Column(db.Integer, nullable=False)
-    review_text = db.Column(db.Text)
-    rating = db.Column(db.Integer)    
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    book_id = Column(Integer, ForeignKey('books.id'), nullable=False)
+    user_id = Column(Integer, nullable=False)
+    review_text = Column(Text)
+    rating = Column(Integer)
+
+# class User(Base):
+#     __tablename__ = "users"
+    
+#     id = Column(Integer, primary_key=True, index=True)
+#     username = Column(String, unique=True, index=True, nullable=False)
+#     hashed_password = Column(String, nullable=False)  
